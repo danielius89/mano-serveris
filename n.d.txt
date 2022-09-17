@@ -1,0 +1,54 @@
+2022-09-06:
+  Sukurti REST API savo sugalvotai kolekcijai. Geriausia tai pačiai kolekcijai kurią naudojot React
+  atsiskaitymui su JSON server.
+    API SERVER endpoints:
+      * GET     '/collection-name'     - parsiunčia visus
+      * GET     '/collection-name/:id' - parsiunčia vieną pagal id
+      * POST    '/collection-name'     - sukuria naują
+      * PUT     '/collection-name/:id' - perrašo esančio elementos duomenis, ištrinant senus
+      * DELETE  '/collection-name/:id' - ištrina elementą pagal id
+    
+    File structure:
+      helpers/ - pagalbinės funkcijos
+      routers/ - endpoint'ų aprašymo failai
+      controllers/ - logikos eigos aprašymo failai (kolkas ir logika)
+      main.js - serverio konfigūracijos, susaistymo ir paleidomo failas
+
+2022-09-07:  
+  Įsirašyti middleware ir pritaikyti savo projektui:
+    * cors
+    * morgan
+    * express.json (bodyParser)
+  
+  Paslėpkite konfiguruojamus ir jautrius duomenis .env faile, naudojant "dotenv" biblioteką
+
+2022-09-08: 
+  Perrašyti savo kolekcijos REST API naudojant MongoDB Atlass per 'mongoose' bibliotekos Modelį 
+
+2022-09-12:
+  * Sukurkite užklausos klaidos tipą
+  * Sukurkite pagalbines funkcijas kurti 404 ir 400 klaidas:
+    * 404 - NotFound 
+    * 400 - BadData
+  * Parašykite bendrą funkciją 'sendErrorResponse' siųsti užklausų klaidoms
+  * Visas savo kolekcijos užklausas apdorokite su funkcija 'sendErrorResponse'
+  * aprašykite validacijos schema savo esybės modelio faile
+  * Sukurkite statinius metodus modeliui 'validate' ir 'validateUpdate'
+  * Pritaikykite validavimo funkcijas metodams:
+    * 'update' - EntityModel.validateUpdate
+    * 'create' - EntityModel.validate
+    * 'replace' - EntityModel.validate
+
+2022-09-13:
+  Pasiruošimas:
+    * https://www.youtube.com/watch?v=C3icLzBtg8I&t=3s&ab_channel=ChristopherKalodikis
+    * peržiūrėkite aplanko 'vaizdiniai pvz' iliustracijas, jas išanalizuokite ir suformuokite klausimus.
+
+  Projekto vystymas:
+    * Sukurti REST API savo šalutinei/šalutinėms struktūroms
+    * Pagrindinės struktūros GET metodams sukurkite galimybę apjungti duomenis su šalutine struktūra
+      naudojant query parametrą 'joinBy';
+    * Papildykite serverio middleware'us, kad galėtumėte dalintis statiniais failais iš aplanko '/public'
+    * Visas užklausas REST API užklausų maršrutizatorius (Routers) išsaugokite po bendru maršrutizatoriumi
+      'apiRouter'
+
