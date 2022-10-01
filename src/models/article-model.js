@@ -1,7 +1,7 @@
 const { Schema, Types, model } = require('mongoose');
 const yup = require('yup');
 
-const cupSchema = Schema({
+const articleSchema = Schema({
   title: {
     type: String,
     required: true,
@@ -27,48 +27,48 @@ const cupSchema = Schema({
   timestamps: true
 });
 
-const cupValidationSchema = yup.object().shape({
+const articleValidationSchema = yup.object().shape({
   title: yup
-    .string().typeError('Cup.title must be a string')
-    .required('Cup.title is required'),
+    .string().typeError('Article.title must be a string')
+    .required('Article.title is required'),
   description: yup
-    .string().typeError('Cup.description must be a string')
-    .required('Cup.description is required'),
+    .string().typeError('Article.description must be a string')
+    .required('Article.description is required'),
   categoryId: yup
-    .string().typeError('Cup.categoryId must be a string')
+    .string().typeError('Article.categoryId must be a string')
     .test(
       'is-mongo-object-id',
-      'Cup.categoryId must be valid MongoDB object Id',
+      'Article.categoryId must be valid MongoDB object Id',
       Types.ObjectId.isValid
     )
-    .required('Cup.categoryId is required'),
+    .required('Article.categoryId is required'),
   img: yup
-    .string().typeError('Cup.img must be a string')
-    .required('Cup.img is required'),
+    .string().typeError('Article.img must be a string')
+    .required('Article.img is required'),
   price: yup
-    .number().typeError('Cup.price must be a number')
-    .required('Cup.price is required')
-    .positive('Cup.price must be positive')
+    .number().typeError('Article.price must be a number')
+    .required('Article.price is required')
+    .positive('Article.price must be positive')
 });
 
-const cupUpdateValidationSchema = yup.object().shape({
-  title: yup.string().typeError('Cup.title must be a string'),
-  description: yup.string().typeError('Cup.description must be a string'),
-  categoryId: yup.string().typeError('Cup.categoryId must be a string')
+const articleUpdateValidationSchema = yup.object().shape({
+  title: yup.string().typeError('Article.title must be a string'),
+  description: yup.string().typeError('Article.description must be a string'),
+  categoryId: yup.string().typeError('Article.categoryId must be a string')
     .test(
       'is-mongo-object-id',
-      'Cup.categoryId must be valid MongoDB object Id',
+      'Article.categoryId must be valid MongoDB object Id',
       Types.ObjectId.isValid
     ),
-  img: yup.string().typeError('Cup.img must be a string'),
+  img: yup.string().typeError('Article.img must be a string'),
   price: yup.number()
-    .typeError('Cup.price must be a number')
-    .positive('Cup.price must be positive'),
+    .typeError('Article.price must be a number')
+    .positive('Article.price must be positive'),
 });
 
-cupSchema.statics.validate = (cupData) => cupValidationSchema.validateSync(cupData)
-cupSchema.statics.validateUpdate = (cupData) => cupUpdateValidationSchema.validateSync(cupData)
+articleSchema.statics.validate = (articleData) => articleValidationSchema.validateSync(articleData)
+articleSchema.statics.validateUpdate = (articleData) => articleUpdateValidationSchema.validateSync(articleData)
 
-const CupModel = model('Cup', cupSchema);
+const ArticleModel = model('Article', articleSchema);
 
-module.exports = CupModel;
+module.exports = ArticleModel;

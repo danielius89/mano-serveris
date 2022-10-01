@@ -8,18 +8,18 @@ const {
   remove,
 } = require('../../controllers/news-controller');
 
-const cupsRouter = Router();
+const newsRouter = Router();
 
-cupsRouter.get('/', fetchAll);
+newsRouter.get('/', fetchAll);
 
-cupsRouter.get('/:id', fetch);
+newsRouter.get('/:id', fetch);
 
-cupsRouter.post('/', create);
+newsRouter.post('/', create);
 
-cupsRouter.put('/:id', replace);
+newsRouter.put('/:id', replace);
 
-cupsRouter.patch('/:id', update);
+newsRouter.patch('/:id', update);
 
-cupsRouter.delete('/:id', remove);
+newsRouter.delete('/:id', remove);
 
-module.exports = cupsRouter;
+module.exports = newsRouter;

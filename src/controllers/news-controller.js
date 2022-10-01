@@ -1,98 +1,98 @@
 const { removeEmptyProps } = require('../helpers');
 const { createNotFoundError, sendErrorResponse } = require('../helpers/errors');
-const CupModel = require('../models/article-model');
+const ArticleModel = require('../models/article-model');
 
-const createCupNotFoundError = (cupId) => createNotFoundError(`Cup with id '${cupId}' was not found`);
+const createArticleNotFoundError = (articleId) => createNotFoundError(`Article with id '${articleId}' was not found`);
 
 const fetchAll = async (req, res) => {
   const { joinBy } = req.query;
 
   try {
-    const cupDocuments = joinBy === 'categoryId'
-      ? await CupModel.find().populate('categoryId')
-      : await CupModel.find();
+    const articleDocuments = joinBy === 'categoryId'
+      ? await ArticleModel.find().populate('categoryId')
+      : await ArticleModel.find();
 
-    res.status(200).json(cupDocuments);
+    res.status(200).json(articleDocuments);
   } catch (err) { sendErrorResponse(err, res); }
 };
 
 const fetch = async (req, res) => {
-  const cupId = req.params.id;
+  const articleId = req.params.id;
   const { joinBy } = req.query;
 
   try {
-    const foundCup = joinBy === 'categoryId'
-      ? await CupModel.findById(cupId).populate('categoryId')
-      : await CupModel.findById(cupId);
-    if (foundCup === null) throw createCupNotFoundError(cupId);
+    const foundArticle = joinBy === 'categoryId'
+      ? await ArticleModel.findById(articleId).populate('categoryId')
+      : await ArticleModel.findById(articleId);
+    if (foundArticle === null) throw createArticleNotFoundError(articleId);
 
-    res.status(200).json(foundCup);
+    res.status(200).json(foundArticle);
   } catch (err) { sendErrorResponse(err, res); }
 };
 
 const create = async (req, res) => {
-  const newCupData = req.body;
+  const newArticleData = req.body;
 
   try {
-    CupModel.validate(newCupData);
+    ArticleModel.validate(newArticleData);
 
-    const newCup = await CupModel.create(newCupData)
+    const newArticle = await ArticleModel.create(newArticleData)
 
-    res.status(201).json(newCup)
+    res.status(201).json(newArticle)
 
   } catch (err) { sendErrorResponse(err, res); }
 };
 
 const replace = async (req, res) => {
-  const cupId = req.params.id;
+  const articleId = req.params.id;
   const { title, description, categoryId, img, price } = req.body;
-  const newCupData = { title, description, categoryId, img, price };
+  const newArticleData = { title, description, categoryId, img, price };
 
   try {
-    CupModel.validate(newCupData);
+    ArticleModel.validate(newArticleData);
 
-    const updatedCup = await CupModel.findByIdAndUpdate(
-      cupId,
-      newCupData,
+    const updatedArticle = await ArticleModel.findByIdAndUpdate(
+      articleId,
+      newArticleData,
       { new: true, runValidators: true }
     );
 
-    if (updatedCup === null) throw createCupNotFoundError(cupId);
+    if (updatedArticle === null) throw createArticleNotFoundError(articleId);
 
-    res.status(200).json(updatedCup)
+    res.status(200).json(updatedArticle)
 
   } catch (err) { sendErrorResponse(err, res); }
 };
 
 const update = async (req, res) => {
-  const cupId = req.params.id;
+  const articleId = req.params.id;
   const { title, description, categoryId, img, price } = req.body;
-  const newCupData = removeEmptyProps({ title, description, categoryId, img, price });
+  const newArticleData = removeEmptyProps({ title, description, categoryId, img, price });
 
   try {
-    CupModel.validateUpdate(newCupData);
+    ArticleModel.validateUpdate(newArticleData);
 
-    const updatedCup = await CupModel.findByIdAndUpdate(
-      cupId,
-      newCupData,
+    const updatedArticle = await ArticleModel.findByIdAndUpdate(
+      articleId,
+      newArticleData,
       { new: true }
     );
 
-    if (updatedCup === null) throw createCupNotFoundError(cupId);
+    if (updatedArticle === null) throw createArticleNotFoundError(articleId);
 
-    res.status(200).json(updatedCup)
+    res.status(200).json(updatedArticle)
 
   } catch (err) { sendErrorResponse(err, res); }
 };
 
 const remove = async (req, res) => {
-  const cupId = req.params.id;
+  const articleId = req.params.id;
 
   try {
-    const deletedCup = await CupModel.findByIdAndDelete(cupId);
-    if (deletedCup === null) createCupNotFoundError(cupId);
+    const deletedArticle = await ArticleModel.findByIdAndDelete(articleId);
+    if (deletedArticle === null) createArticleNotFoundError(articleId);
 
-    res.status(200).json(deletedCup);
+    res.status(200).json(deletedArticle);
   } catch (err) { sendErrorResponse(err, res); }
 };
 
