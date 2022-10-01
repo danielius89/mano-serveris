@@ -45,8 +45,8 @@ const create = async (req, res) => {
 
 const replace = async (req, res) => {
   const articleId = req.params.id;
-  const { title, description, categoryId, img, price } = req.body;
-  const newArticleData = { title, description, categoryId, img, price };
+  const { articleTitle, articleContent, categoryId, img, author } = req.body;
+  const newArticleData = { articleTitle, articleContent, categoryId, img, author };
 
   try {
     ArticleModel.validate(newArticleData);
@@ -66,8 +66,8 @@ const replace = async (req, res) => {
 
 const update = async (req, res) => {
   const articleId = req.params.id;
-  const { title, description, categoryId, img, price } = req.body;
-  const newArticleData = removeEmptyProps({ title, description, categoryId, img, price });
+  const { articleTitle, articleContent, categoryId, img, author } = req.body;
+  const newArticleData = removeEmptyProps({ articleTitle, articleContent, categoryId, img, author });
 
   try {
     ArticleModel.validateUpdate(newArticleData);

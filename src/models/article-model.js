@@ -2,11 +2,11 @@ const { Schema, Types, model } = require('mongoose');
 const yup = require('yup');
 
 const articleSchema = Schema({
-  title: {
+  articleTitle: {
     type: String,
     required: true,
   },
-  description: {
+  articleContent: {
     type: String,
     required: true,
   },
@@ -19,8 +19,8 @@ const articleSchema = Schema({
     type: String,
     required: true,
   },
-  price: {
-    type: Number,
+  author: {
+    type: String,
     required: true,
   },
 }, {
@@ -28,12 +28,12 @@ const articleSchema = Schema({
 });
 
 const articleValidationSchema = yup.object().shape({
-  title: yup
-    .string().typeError('Article.title must be a string')
-    .required('Article.title is required'),
-  description: yup
-    .string().typeError('Article.description must be a string')
-    .required('Article.description is required'),
+  articleTitle: yup
+    .string().typeError('Article.articleTitle must be a string')
+    .required('Article.articleTitle is required'),
+  articleContent: yup
+    .string().typeError('Article.articleContent must be a string')
+    .required('Article.articleContent is required'),
   categoryId: yup
     .string().typeError('Article.categoryId must be a string')
     .test(
@@ -45,15 +45,14 @@ const articleValidationSchema = yup.object().shape({
   img: yup
     .string().typeError('Article.img must be a string')
     .required('Article.img is required'),
-  price: yup
-    .number().typeError('Article.price must be a number')
-    .required('Article.price is required')
-    .positive('Article.price must be positive')
+  author: yup
+    .number().typeError('Article.author must be a string')
+    .required('Article.author is required')
 });
 
 const articleUpdateValidationSchema = yup.object().shape({
-  title: yup.string().typeError('Article.title must be a string'),
-  description: yup.string().typeError('Article.description must be a string'),
+  articleTitle: yup.string().typeError('Article.articleTitle must be a string'),
+  articleContent: yup.string().typeError('Article.articleContent must be a string'),
   categoryId: yup.string().typeError('Article.categoryId must be a string')
     .test(
       'is-mongo-object-id',
@@ -61,9 +60,8 @@ const articleUpdateValidationSchema = yup.object().shape({
       Types.ObjectId.isValid
     ),
   img: yup.string().typeError('Article.img must be a string'),
-  price: yup.number()
-    .typeError('Article.price must be a number')
-    .positive('Article.price must be positive'),
+  author: yup.number()
+    .typeError('Article.author must be a string'),
 });
 
 articleSchema.statics.validate = (articleData) => articleValidationSchema.validateSync(articleData)
