@@ -46,7 +46,7 @@ const articleValidationSchema = yup.object().shape({
     .string().typeError('Article.img must be a string')
     .required('Article.img is required'),
   author: yup
-    .number().typeError('Article.author must be a string')
+    .string().typeError('Article.author must be a string')
     .required('Article.author is required')
 });
 
@@ -60,7 +60,7 @@ const articleUpdateValidationSchema = yup.object().shape({
       Types.ObjectId.isValid
     ),
   img: yup.string().typeError('Article.img must be a string'),
-  author: yup.number()
+  author: yup.string()
     .typeError('Article.author must be a string'),
 });
 
