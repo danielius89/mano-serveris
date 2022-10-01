@@ -15,7 +15,7 @@ npm start
 create .env file based on .env.example
 ```
 
-## 4. Install Thunder Client to Visual Studio code
+## 4. Install Thunder Client extension to Visual Studio code
 
 ## 5. Import json files to your Thunder Client
 
