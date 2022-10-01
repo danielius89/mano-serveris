@@ -1,6 +1,6 @@
 const { removeEmptyProps } = require('../helpers');
 const { createNotFoundError, sendErrorResponse } = require('../helpers/errors');
-const CupModel = require('../models/cup-model');
+const CupModel = require('../models/article-model');
 
 const createCupNotFoundError = (cupId) => createNotFoundError(`Cup with id '${cupId}' was not found`);
 
