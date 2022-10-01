@@ -34,3 +34,6 @@ thunder-collection_news.json
 `
 thunder-collection_categories.json
 `
+## 6. Check the GIF to see how everything works.
+
+## Have a great day! :)
